@@ -10,20 +10,4 @@
 
 @implementation JKRouteVCMap
 
-- (NSMutableDictionary *)getQueryParams:(NSString *)params {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    if (!params) {
-        return dic;
-    }
-    NSArray *paramArray = [params componentsSeparatedByString:@"&"];
-    if (!paramArray || paramArray.count == 0) {
-        return dic;
-    }
-    for (NSString *param in paramArray) {
-        NSArray *keyValue = [param componentsSeparatedByString:@"="];
-        [dic setObject:keyValue[1] forKey:keyValue[0]];
-    }
-    return dic;
-}
-
 @end

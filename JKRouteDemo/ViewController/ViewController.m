@@ -32,11 +32,11 @@
 }
 
 - (void)jumpAction {
-//    [JKRouter routeURLScheme:RouteScheme vc:@"ViewController2" params:@{@"king":@"Jay"}];
-    NSURL *editPost = [NSURL URLWithString:@"JKRouteDemo://ViewController2?key=lalala"];
-    if ([[UIApplication sharedApplication] canOpenURL:editPost]) {
-        [[UIApplication sharedApplication] openURL:editPost];
-    }
+    [JKRouter routeURLScheme:RouteScheme vc:@"ViewController2" params:@{@"king":@"Jay"}];
+//    NSURL *editPost = [NSURL URLWithString:@"JKRouteDemo://ViewController2?key=lalala"];
+//    if ([[UIApplication sharedApplication] canOpenURL:editPost]) {
+//        [[UIApplication sharedApplication] openURL:editPost];
+//    }
 }
 
 

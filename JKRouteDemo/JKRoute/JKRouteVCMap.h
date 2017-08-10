@@ -36,12 +36,4 @@ typedef void(^HandlerBlock)(UIViewController *vc, NSDictionary *params);
  */
 @property (nonatomic, copy) HandlerBlock handlerBlock;
 
-/**
- 解析参数
-
- @param params 传参字符串
- @return 字典参数
- */
-- (NSMutableDictionary *)getQueryParams:(NSString *)params;
-
 @end

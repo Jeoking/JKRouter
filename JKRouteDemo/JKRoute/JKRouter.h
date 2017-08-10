@@ -13,6 +13,7 @@ static NSString *RouteScheme = @"JKRouteDemo";               //跳转到下一�
 static NSString *PopScheme = @"JKPopScheme";                 //返回到上一个控制器
 static NSString *PopToRootScheme = @"JKPopToRootScheme";     //返回到根控制器
 static NSString *PopToVCScheme = @"JKPopToVCScheme";         //返回到指定控制器
+static NSString *PresentVCScheme = @"JKPresentVCScheme";     //弹出模态视图
 
 @interface JKRouter : NSObject
 

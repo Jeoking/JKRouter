@@ -37,12 +37,12 @@ static JKRouter* _singleRouter = nil;
     return self;
 }
 
-- (void)setRootVC:(UINavigationController *)vc {
-    if (!vc || ![vc isKindOfClass:[UINavigationController class]]) {
+- (void)setRootNC:(UINavigationController *)nc {
+    if (!nc || ![nc isKindOfClass:[UINavigationController class]]) {
         NSLog(@"请传入UIViewController类型！");
         return;
     }
-    _rootNC = vc;
+    _rootNC = nc;
 }
 
 - (void)registerRouterUrl:(NSString *)urlStr hander:(HandlerBlock)handlerBlock {
@@ -159,17 +159,49 @@ static JKRouter* _singleRouter = nil;
             [self.rootNC popToViewController:directVC animated:YES];
         } else {
             NSLog(@"没有此子控制器!");
+            return;
         }
+    } else if ([routerUrl.scheme isEqualToString:PresentVCScheme]) {
+        //弹出模态视图
+        UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self.rootNC presentViewController:nc animated:YES completion:^{
+            
+        }];
+    } else {
+        NSLog(@"传入Scheme不正确!");
+        return;
     }
     
     //回调
     if (routeVCMap.handlerBlock) {
-        NSMutableDictionary *dic = [routeVCMap getQueryParams:routerUrl.query];
+        NSMutableDictionary *dic = [self getQueryParams:routerUrl.query];
         if (params) {
             [dic addEntriesFromDictionary:params];
         }
         routeVCMap.handlerBlock(vc, dic);
     }
+}
+
+/**
+ URL传参解析
+
+ @param params URL传参字符串 如：key=value&key1=value1
+ @return 参数字典
+ */
+- (NSMutableDictionary *)getQueryParams:(NSString *)params {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    if (!params) {
+        return dic;
+    }
+    NSArray *paramArray = [params componentsSeparatedByString:@"&"];
+    if (!paramArray || paramArray.count == 0) {
+        return dic;
+    }
+    for (NSString *param in paramArray) {
+        NSArray *keyValue = [param componentsSeparatedByString:@"="];
+        [dic setObject:keyValue[1] forKey:keyValue[0]];
+    }
+    return dic;
 }
 
 

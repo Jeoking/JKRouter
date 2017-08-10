@@ -3,41 +3,19 @@
 
 第一步：在AppDelegate里注册
 
-- (void)registerRoutes {
+JKRouter *router = [JKRouter globalRouter];
 
-    JKRouter *router = [JKRouter globalRouter];
-
-    router.rootNC = (UINavigationController *)self.window.rootViewController;
+router.rootNC = (UINavigationController *)self.window.rootViewController;
     
-    [router registerRouterUrl:@"JKRouteDemo://ViewController" hander:^(UIViewController *vc, NSDictionary *params) {
+[router registerRouterUrl:@"JKRouteDemo://ViewController" hander:^(UIViewController *vc, NSDictionary *params) {
 
         NSLog(@"回调成功====>%@", params);
         NSLog(@"VC====>%@", NSStringFromClass([vc class]));
 
-    }];
-    
-    [router registerRouterUrl:@"JKRouteDemo://ViewController2" hander:^(UIViewController *vc, NSDictionary *params) {
+}];
 
-        NSLog(@"回调成功====>%@", params);
-        NSLog(@"VC====>%@", NSStringFromClass([vc class]));
-
-    }];
-    
-    [router registerRouterUrl:@"JKRouteDemo://ViewController3" hander:^(UIViewController *vc, NSDictionary *params) {
-
-        NSLog(@"回调成功====>%@", params);
-        NSLog(@"VC====>%@", NSStringFromClass([vc class]));
-
-    }];
-    
-    [router registerRouterUrl:@"JKRouteDemo://ViewController4" hander:^(UIViewController *vc, NSDictionary *params) {
-
-        NSLog(@"回调成功====>%@", params);
-        NSLog(@"VC====>%@", NSStringFromClass([vc class]));
-
-    }];
-}
-
-第二部：执行统跳
+第二步：执行统跳
 
 [JKRouter routeURLStr:[NSString stringWithFormat:@"%@://ViewController?key=hello&key2=haha”, RouteScheme] params:@{@"key3”:@“OK”}];
+
+第三步：没了，下Demo看吧

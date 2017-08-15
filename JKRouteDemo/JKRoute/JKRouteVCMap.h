@@ -17,19 +17,19 @@ typedef void(^HandlerBlock)(UIViewController *vc, NSDictionary *params);
 @interface JKRouteVCMap : NSObject
 
 /**
- *  URL
- */
-@property (nonatomic, copy) NSString *routeUrl;
-
-/**
  *  URL的theme
  */
 @property (nonatomic, copy) NSString *scheme;
 
 /**
- *  URL的host 通常为控制器名称
+ *  对应vc名称
  */
-@property (nonatomic, copy) NSString *host;
+@property (nonatomic, copy) NSString *vcName;
+
+/**
+ *  获取vcMap的键值
+ */
+@property (nonatomic, copy) NSString *vcMapKey;
 
 /**
  *  回调

@@ -67,12 +67,12 @@
     JKRouter *router = [JKRouter globalRouter];
     router.rootNC = (UINavigationController *)self.tabVC.selectedViewController;
     
-    [router registerRouterUrl:@"JKRouteDemo://ViewController/view/sub" hander:^(UIViewController *vc, NSDictionary *params) {
+    [router registerRouterUrl:@"JKRouteDemo://vc/view/sub" vcName:@"ViewController" hander:^(UIViewController *vc, NSDictionary *params) {
         NSLog(@"回调成功====>%@", params);
         NSLog(@"VC====>%@", NSStringFromClass([vc class]));
     }];
     
-    [router registerRouterUrl:@"JKRouteDemo://ViewController2/view/sub" hander:^(UIViewController *vc, NSDictionary *params) {
+    [router registerRouterUrl:@"JKRouteDemo://vc2" vcName:@"ViewController2" hander:^(UIViewController *vc, NSDictionary *params) {
         NSLog(@"回调成功====>%@", params);
         NSLog(@"VC====>%@", NSStringFromClass([vc class]));
         
@@ -81,19 +81,15 @@
         [vc2 getParams:params[@"key"]];
     }];
     
-    [router registerRouterUrl:@"JKRouteDemo://ViewController3/view/sub" hander:^(UIViewController *vc, NSDictionary *params) {
+    [router registerRouterUrl:@"JKRouteDemo://vc3/view/sub" vcName:@"ViewController3" hander:^(UIViewController *vc, NSDictionary *params) {
         NSLog(@"回调成功====>%@", params);
         NSLog(@"VC====>%@", NSStringFromClass([vc class]));
     }];
     
-    [router registerRouterUrl:@"JKRouteDemo://ViewController4/view/sub" hander:^(UIViewController *vc, NSDictionary *params) {
+    [router registerRouterUrl:@"JKRouteDemo://vc4/view/sub" vcName:@"ViewController4" hander:^(UIViewController *vc, NSDictionary *params) {
         NSLog(@"回调成功====>%@", params);
         NSLog(@"VC====>%@", NSStringFromClass([vc class]));
     }];
-}
-
-- (void)selectVC:(NSInteger)index {
-//    [JKRouter globalRouter].rootVC = self.tab.selectVC;
 }
 
 

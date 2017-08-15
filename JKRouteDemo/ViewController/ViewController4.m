@@ -34,7 +34,7 @@
 - (void)jumpAction {
 //    [JKRouter routeURLStr:[NSString stringWithFormat:@"%@://ViewController?key=jay&key2=king", RouteScheme] params:@{@"key3":@"win"}];
     
-    [JKRouter routeURLStr:[NSString stringWithFormat:@"%@://ViewController2", PopToVCScheme] params:@{@"key":@"hahahahaha"}];
+    [JKRouter routeURLStr:[NSString stringWithFormat:@"%@://vc2", PopToVCScheme] params:@{@"key":@"hahahahaha"}];
 }
 
 - (void)didReceiveMemoryWarning {

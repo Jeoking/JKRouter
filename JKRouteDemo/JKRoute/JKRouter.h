@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "JKRouteVCMap.h"
 
-static NSString *RouteScheme = @"JKRouteDemo";               //跳转到下一个控制器
+static NSString *RouteScheme = @"jkroutedemo";               //跳转到下一个控制器
 static NSString *PopScheme = @"JKPopScheme";                 //返回到上一个控制器
 static NSString *PopToRootScheme = @"JKPopToRootScheme";     //返回到根控制器
 static NSString *PopToVCScheme = @"JKPopToVCScheme";         //返回到指定控制器
@@ -33,9 +33,20 @@ static NSString *PresentVCScheme = @"JKPresentVCScheme";     //弹出模态视�
  注册路由
 
  @param urlStr URL
+ @param vcName VC名称
  @param handlerBlock 回调
  */
-- (void)registerRouterUrl:(NSString *)urlStr hander:(HandlerBlock)handlerBlock;
+- (void)registerRouterUrl:(NSString *)urlStr vcName:(NSString *)vcName hander:(HandlerBlock)handlerBlock;
+
+/**
+ 注册路由
+ 
+ @param scheme scheme 可为nil
+ @param vcMapKey 对应键值
+ @param vcName vc名称
+ @param handlerBlock 回调
+ */
+- (void)registerRouterScheme:(NSString *)scheme vcMapKey:(NSString *)vcMapKey vcName:(NSString *)vcName hander:(HandlerBlock)handlerBlock;
 
 /**
  执行路由
@@ -46,10 +57,10 @@ static NSString *PresentVCScheme = @"JKPresentVCScheme";     //弹出模态视�
 
 + (void)routeURLStr:(NSString *)urlStr;
 
-+ (void)routeURLScheme:(NSString *)scheme vc:(NSString *)vc;
++ (void)routeURLScheme:(NSString *)scheme vcMapKey:(NSString *)vcMapKey;
 
 + (void)routeURLStr:(NSString *)urlStr params:(NSDictionary *)params;
 
-+ (void)routeURLScheme:(NSString *)scheme vc:(NSString *)vc params:(NSDictionary *)params;
++ (void)routeURLScheme:(NSString *)scheme vcMapKey:(NSString *)vcMapKey params:(NSDictionary *)params;
 
 @end

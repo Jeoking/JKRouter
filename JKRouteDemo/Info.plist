@@ -25,7 +25,7 @@
 			<string>com.jeoking.JKRouteDemo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>JKRouteDemo</string>
+				<string>jkroutedemo</string>
 			</array>
 		</dict>
 	</array>

@@ -45,7 +45,14 @@ static JKRouter* _singleRouter = nil;
     _rootNC = nc;
 }
 
-- (void)registerRouterUrl:(NSString *)urlStr hander:(HandlerBlock)handlerBlock {
+/**
+ 注册路由
+ 
+ @param urlStr URL
+ @param vcName VC名称
+ @param handlerBlock 回调
+ */
+- (void)registerRouterUrl:(NSString *)urlStr vcName:(NSString *)vcName hander:(HandlerBlock)handlerBlock {
     //去掉空格
     urlStr = [urlStr stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSURL *routerUrl = [NSURL URLWithString:urlStr];
@@ -55,12 +62,37 @@ static JKRouter* _singleRouter = nil;
     }
     //创建路由模型
     JKRouteVCMap *routeVCMap = [[JKRouteVCMap alloc] init];
-    routeVCMap.routeUrl = urlStr;
+    routeVCMap.vcMapKey = routerUrl.host;
     routeVCMap.scheme = routerUrl.scheme;
-    routeVCMap.host = routerUrl.host;
+    routeVCMap.vcName = vcName;
     routeVCMap.handlerBlock = handlerBlock;
     //将注册的路由模型添加到全局字典
-    self.routerDic[routeVCMap.host] = routeVCMap;
+    self.routerDic[routeVCMap.vcMapKey] = routeVCMap;
+}
+
+/**
+ 注册路由
+
+ @param scheme scheme 可为nil
+ @param vcMapKey 对应键值
+ @param vcName vc名称
+ @param handlerBlock 回调
+ */
+- (void)registerRouterScheme:(NSString *)scheme vcMapKey:(NSString *)vcMapKey vcName:(NSString *)vcName hander:(HandlerBlock)handlerBlock {
+    if (!vcName) {
+        return;
+    }
+    if (!scheme) {
+        scheme = RouteScheme;
+    }
+    //创建路由模型
+    JKRouteVCMap *routeVCMap = [[JKRouteVCMap alloc] init];
+    routeVCMap.vcName = vcName;
+    routeVCMap.scheme = scheme;
+    routeVCMap.vcMapKey = vcMapKey;
+    routeVCMap.handlerBlock = handlerBlock;
+    //将注册的路由模型添加到全局字典
+    self.routerDic[vcMapKey] = routeVCMap;
 }
 
 + (void)routeURL:(NSURL *)url {
@@ -71,25 +103,28 @@ static JKRouter* _singleRouter = nil;
 }
 
 + (void)routeURLStr:(NSString *)urlStr {
+    if (!urlStr) {
+        return;
+    }
     [[JKRouter globalRouter] routeURLStr:urlStr params:nil];
 }
 
-+ (void)routeURLScheme:(NSString *)scheme vc:(NSString *)vc {
-    [self routeURLScheme:scheme vc:vc params:nil];
++ (void)routeURLScheme:(NSString *)scheme vcMapKey:(NSString *)vcMapKey {
+    [self routeURLScheme:scheme vcMapKey:vcMapKey params:nil];
 }
 
 + (void)routeURLStr:(NSString *)urlStr params:(NSDictionary *)params {
     [[JKRouter globalRouter] routeURLStr:urlStr params:params];
 }
 
-+ (void)routeURLScheme:(NSString *)scheme vc:(NSString *)vc params:(NSDictionary *)params {
-    if (!vc) {
++ (void)routeURLScheme:(NSString *)scheme vcMapKey:(NSString *)vcMapKey params:(NSDictionary *)params {
+    if (!vcMapKey) {
         return;
     }
     if (!scheme) {
         scheme = RouteScheme;
     }
-    NSString *urlStr = [NSString stringWithFormat:@"%@://%@", scheme, vc];
+    NSString *urlStr = [NSString stringWithFormat:@"%@://%@", scheme, vcMapKey];
     [[JKRouter globalRouter] routeURLStr:urlStr params:params];
 }
 
@@ -116,7 +151,8 @@ static JKRouter* _singleRouter = nil;
         NSLog(@"请先设置根控制器!");
         return;
     }
-    Class class = NSClassFromString(routeVCMap.host);
+    
+    Class class = NSClassFromString(routeVCMap.vcName);
     if (!class) {
         NSLog(@"类不存在!");
         return;

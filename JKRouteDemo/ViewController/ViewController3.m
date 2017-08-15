@@ -34,7 +34,7 @@
 - (void)jumpAction {
 //    [JKRouter routeURLStr:[NSString stringWithFormat:@"%@://ViewController?key=jay&key2=king", RouteScheme] params:@{@"key3":@"win"}];
     
-    [JKRouter routeURLStr:[NSString stringWithFormat:@"%@://ViewController4", RouteScheme] params:nil];
+    [JKRouter routeURLStr:[NSString stringWithFormat:@"%@://vc4", RouteScheme] params:nil];
 }
 
 
